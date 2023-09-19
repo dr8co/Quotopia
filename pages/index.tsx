@@ -9,7 +9,13 @@ import {
     BackgroundImage2,
     FooterCon,
     FooterLink,
-    GradientBackgroundCon
+    GradientBackgroundCon,
+    QuoteGeneratorCon,
+    QuoteGeneratorInnerCon,
+    QuoteGeneratorTitle,
+    QuoteGeneratorSubTitle,
+    GenerateQuoteButton,
+    GenerateQuoteButtonText
 } from "@/components/QuoteGenerator/QuoteGeneratorElements";
 
 /* Assets */
@@ -28,6 +34,30 @@ export default function Home() {
             </Head>
             {/* Background */}
             <GradientBackgroundCon>
+
+                {/* Quote Modal */}
+
+                {/* Quote Generator */}
+                <QuoteGeneratorCon>
+                    <QuoteGeneratorInnerCon>
+                        <QuoteGeneratorTitle>
+                            Daily Inspiration Generator
+                        </QuoteGeneratorTitle>
+
+                        <QuoteGeneratorSubTitle>
+                            Looking for a splash of inspiration?
+                            Generate a quote card with a random inspirational quote provided by&nbsp;
+                            <FooterLink href="https://zenquotes.io/" target="_blank" rel="noopener noreferrer">
+                            ZenQuotes API</FooterLink>.
+                        </QuoteGeneratorSubTitle>
+
+                        <GenerateQuoteButton onClick={null}>
+                            <GenerateQuoteButtonText>
+                                Make a Quote
+                            </GenerateQuoteButtonText>
+                        </GenerateQuoteButton>
+                    </QuoteGeneratorInnerCon>
+                </QuoteGeneratorCon>
 
                 {/* Background Images */}
                 <BackgroundImage1
