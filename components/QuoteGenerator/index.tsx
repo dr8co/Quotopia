@@ -10,6 +10,11 @@ import {
     QuoteGeneratorTitle
 } from './QuoteGeneratorElements';
 
+// Animations
+import ImageBlob from '../animations/ImageBlob';
+import {ImageBlobCon} from '../animations/AnimationElements';
+import AnimatedDownloadButton from '../animations/AnimatedDownloadButton';
+
 interface QuoteGeneratorModalProps {
     open: boolean,
     close: () => void;
@@ -30,8 +35,8 @@ const QuoteGeneratorModal = ({
                                  setQuoteReceived,
                              }: QuoteGeneratorModalProps) => {
 
-    const wiseDevQuote = '"If you can center a div, anything is possible."';
-    const wiseDevQuoteAuthor = "- a wise senior software engineer";
+    const wiseDevQuote = '"In software development, patience is a feature and impatience is a bug."';
+    const wiseDevQuoteAuthor = "- an unknown software engineer";
 
     const [blobUrl, setBlobUrl] = useState<string | null>(null);
 
@@ -77,7 +82,7 @@ const QuoteGeneratorModal = ({
                 <QuoteGeneratorModalCon sx={style}>
                     <QuoteGeneratorModalInnerCon>
                         {/* State #1: Processing request of quote + quote state is empty */}
-                        {(processingQuote === true && quoteReceived === null) &&
+                        {(processingQuote && quoteReceived === null) &&
                             <>
                                 <ModalCircularProgress
                                     size={"8rem"}
