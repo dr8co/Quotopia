@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
@@ -21,9 +21,10 @@ import {
 /* Assets */
 import Clouds1 from '../assets/cloud-and-thunder.png'
 import Clouds2 from '../assets/cloudy-weather.png'
-import {quotesQueryName} from "@/src/graphql/queries";
+import {generateAQuote, quotesQueryName} from "@/src/graphql/queries";
 import {GraphQLResult} from "@aws-amplify/api-graphql";
 import {API} from "aws-amplify";
+import QuoteGeneratorModal from "@/components/QuoteGenerator";
 
 // interface for our DynamoDB object
 interface UpdateQuoteInfoData {
@@ -45,6 +46,9 @@ function isGraphQLResultForquotesQueryName(response: any): response is GraphQLRe
 
 export default function Home() {
     const [numQuotes, setNumQuotes] = useState<number | null>(0);
+    const [openGenerator, setOpenGenerator] = useState(false);
+    const [processingQuote, setProcessingQuote] = useState(false);
+    const [quoteReceived, setQuoteReceived] = useState<String | null>(null);
 
     // Function to fetch our DynamoDB object (quotes generated)
     const updateQuoteInfo = async () => {
@@ -80,6 +84,53 @@ export default function Home() {
         updateQuoteInfo();
     }, [])
 
+    // Functions for quote generator modal
+    const handleCloseGenerator = () => {
+        setOpenGenerator(false);
+        setProcessingQuote(false);
+        setQuoteReceived(null);
+    }
+
+    const handleOpenGenerator = async (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        setOpenGenerator(true);
+        setProcessingQuote(true);
+        try {
+            // Run Lambda Function
+            const runFunction = "runFunction";
+            const runFunctionStringified = JSON.stringify(runFunction);
+            const response = await API.graphql<GenerateAQuoteData>({
+                query: generateAQuote,
+                authMode: "AWS_IAM",
+                variables: {
+                    input: runFunctionStringified,
+                },
+            });
+            const responseStringified = JSON.stringify(response);
+            const responseReStringified = JSON.stringify(responseStringified);
+            const bodyIndex = responseReStringified.indexOf("body=") + 5;
+            const bodyAndBase64 = responseReStringified.substring(bodyIndex);
+            const bodyArray = bodyAndBase64.split(",");
+            const body = bodyArray[0];
+            console.log(body);
+            setQuoteReceived(body);
+
+            // End state:
+            setProcessingQuote(false);
+
+            // Fetch if any new quotes were generated from the counter
+            updateQuoteInfo();
+
+            // setProcessingQuote(false);
+            // setTimeout(() => {
+            //   setProcessingQuote(false);
+            // }, 3000);
+        } catch (error) {
+            console.log('error generating quote:', error);
+            setProcessingQuote(false);
+        }
+    }
+
     return (
         <>
             <Head>
@@ -92,6 +143,14 @@ export default function Home() {
             <GradientBackgroundCon>
 
                 {/* Quote Modal */}
+                <QuoteGeneratorModal
+                    open={openGenerator}
+                    close={handleCloseGenerator}
+                    processingQuote={processingQuote}
+                    setProcessingQuote={setProcessingQuote}
+                    quoteReceived={quoteReceived}
+                    setQuoteReceived={setQuoteReceived}
+                />
 
                 {/* Quote Generator */}
                 <QuoteGeneratorCon>
@@ -107,7 +166,7 @@ export default function Home() {
                                 ZenQuotes API</FooterLink>.
                         </QuoteGeneratorSubTitle>
 
-                        <GenerateQuoteButton onClick={null}>
+                        <GenerateQuoteButton onClick={handleOpenGenerator}>
                             <GenerateQuoteButtonText>
                                 Make a Quote
                             </GenerateQuoteButtonText>
