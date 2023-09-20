@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
@@ -21,9 +21,65 @@ import {
 /* Assets */
 import Clouds1 from '../assets/cloud-and-thunder.png'
 import Clouds2 from '../assets/cloudy-weather.png'
+import {quotesQueryName} from "@/src/graphql/queries";
+import {GraphQLResult} from "@aws-amplify/api-graphql";
+import {API} from "aws-amplify";
+
+// interface for our DynamoDB object
+interface UpdateQuoteInfoData {
+    id: string;
+    queryName: string;
+    quotesGenerated: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
+// type guard for our fetch function
+function isGraphQLResultForquotesQueryName(response: any): response is GraphQLResult<{
+    quotesQueryName: {
+        items: [UpdateQuoteInfoData];
+    };
+}> {
+    return response.data && response.data.quotesQueryName && response.data.quotesQueryName.items;
+}
 
 export default function Home() {
-    const [numQuotes, setumNuQotes] = useState<number | null>(0);
+    const [numQuotes, setNumQuotes] = useState<number | null>(0);
+
+    // Function to fetch our DynamoDB object (quotes generated)
+    const updateQuoteInfo = async () => {
+        try {
+            const response = await API.graphql<UpdateQuoteInfoData>({
+                query: quotesQueryName,
+                authMode: "AWS_IAM",
+                variables: {
+                    queryName: "LIVE",
+                },
+            })
+            console.log('response', response);
+            // setNumberOfQuotes();
+
+            // Create type guards
+            if (!isGraphQLResultForquotesQueryName(response)) {
+                throw new Error('Unexpected response from API.graphql');
+            }
+
+            if (!response.data) {
+                throw new Error('Response data is undefined');
+            }
+
+            const receivedNumberOfQuotes = response.data.quotesQueryName.items[0].quotesGenerated;
+            setNumQuotes(receivedNumberOfQuotes);
+
+        } catch (error) {
+            console.log('error getting quote data', error)
+        }
+    }
+
+    useEffect(() => {
+        updateQuoteInfo();
+    }, [])
+
     return (
         <>
             <Head>
@@ -48,7 +104,7 @@ export default function Home() {
                             Looking for a splash of inspiration?
                             Generate a quote card with a random inspirational quote provided by&nbsp;
                             <FooterLink href="https://zenquotes.io/" target="_blank" rel="noopener noreferrer">
-                            ZenQuotes API</FooterLink>.
+                                ZenQuotes API</FooterLink>.
                         </QuoteGeneratorSubTitle>
 
                         <GenerateQuoteButton onClick={null}>
