@@ -10,6 +10,20 @@
       "StackName": "amplify-inspirationalquotes-dev-190757",
       "StackId": "arn:aws:cloudformation:us-east-1:070524725981:stack/amplify-inspirationalquotes-dev-190757/e1cb54f0-57cf-11ee-a837-0e125d43dfd3",
       "AmplifyAppId": "dsdjbzonwlb8i"
+    },
+    "categories": {
+      "auth": {
+        "inspirationalquotes92e98cf8": {}
+      },
+      "function": {
+        "inspoquoteLambda": {
+          "deploymentBucketName": "amplify-inspirationalquotes-dev-190757-deployment",
+          "s3Key": "amplify-builds/inspoquoteLambda-33714f6671354b774744-build.zip"
+        }
+      },
+      "api": {
+        "inspirationalquotes": {}
+      }
     }
   }
 }
