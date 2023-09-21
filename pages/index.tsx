@@ -26,6 +26,15 @@ import {GraphQLResult} from "@aws-amplify/api-graphql";
 import {API} from "aws-amplify";
 import QuoteGeneratorModal from "@/components/QuoteGenerator";
 
+// interface for the appsync <> lambda JSON response
+interface GenerateAQuoteData {
+    generateAQuote: {
+      statusCode: number;
+      headers: { [key: string]: string };
+      body: string;
+    }
+  }
+
 // interface for our DynamoDB object
 interface UpdateQuoteInfoData {
     id: string;
