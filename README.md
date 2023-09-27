@@ -9,7 +9,7 @@ A simple inspirational quote generator that uses
 
 1. Clone the repo
 2. From the root directory, run `npm install`
-3. Run `npm build` to build the app
+3. Run `npm run build` to build the app
 4. Run `npm start` to start the app
 5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
