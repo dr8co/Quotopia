@@ -15,7 +15,8 @@ A simple inspirational quote generator that uses
 
 ## Deployed app
 
-The app is deployed at <https://prod.dsdjbzonwlb8i.amplifyapp.com/>
+The app is deployed at <https://prod.dsdjbzonwlb8i.amplifyapp.com>
+and at <https://quotes.boujee.tech>
 
 ## Built with
 
