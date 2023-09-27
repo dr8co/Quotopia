@@ -18,13 +18,14 @@ import {
     GenerateQuoteButtonText
 } from "@/components/QuoteGenerator/QuoteGeneratorElements";
 
-/* Assets */
-import Clouds1 from '../assets/cloud-and-thunder.png'
-import Clouds2 from '../assets/cloudy-weather.png'
 import {generateAQuote, quotesQueryName} from "@/src/graphql/queries";
 import {GraphQLResult} from "@aws-amplify/api-graphql";
 import {API} from "aws-amplify";
 import QuoteGeneratorModal from "@/components/QuoteGenerator";
+
+/* Assets */
+import Casual from '../assets/casual.png'
+import Construction from '../assets/construction.png'
 
 // interface for the appsync <> lambda JSON response
 interface GenerateAQuoteData {
@@ -129,11 +130,6 @@ export default function Home() {
 
             // Fetch if any new quotes were generated from the counter
             updateQuoteInfo();
-
-            // setProcessingQuote(false);
-            // setTimeout(() => {
-            //   setProcessingQuote(false);
-            // }, 3000);
         } catch (error) {
             console.log('error generating quote:', error);
             setProcessingQuote(false);
@@ -185,15 +181,15 @@ export default function Home() {
 
                 {/* Background Images */}
                 <BackgroundImage1
-                    src={Clouds1}
-                    height="300"
-                    alt="cloud1"
+                    src={Construction}
+                    height={500}
+                    alt="Glass Composition"
                 />
 
                 <BackgroundImage2
-                    src={Clouds2}
-                    height="300"
-                    alt="cloud2"
+                    src={Casual}
+                    height={400}
+                    alt="A lady and a dog having fun"
                 />
 
                 {/* Footer */}

@@ -4,7 +4,7 @@ import Image from "next/image";
 import {Box, CircularProgress} from "@mui/material";
 
 export const GradientBackgroundCon = styled.div`
-  background: linear-gradient(to right, #000046, #1CB5E0);
+  background: linear-gradient(to right, #fc00ff, #00dbde);
   background-size: 400% 400%;
   animation: gradient 6s ease infinite;
   height: 100vh;
@@ -25,15 +25,62 @@ export const GradientBackgroundCon = styled.div`
 export const BackgroundImage1 = styled(Image)`
   position: relative;
   z-index: 1;
-  margin-left: -10px;
-  margin-top: -10px;
+  margin-left: 10px;
+  margin-top: 10px;
+
+  @media only screen and (max-width: 768px) {
+    margin-left: -10px;
+    margin-top: -30px;
+    scale: 0.8;
+  }
+
+  @media only screen and (max-width: 600px) {
+    margin-left: -20px;
+    margin-top: -50px;
+    scale: 0.75;
+  }
+
+  @media only screen and (max-width: 480px) {
+    margin-left: -30px;
+    margin-top: -60px;
+    scale: 0.7;
+  }
+
+  @media only screen and (max-width: 320px) {
+    margin-left: -60px;
+    margin-top: -75px;
+   scale: 0.6;
+  }
 `;
 
 export const BackgroundImage2 = styled(Image)`
   position: fixed;
   z-index: 1;
-  right: -120px;
-  bottom: -10px;
+  right: -70px;
+  bottom: -5px;
+
+  @media only screen and (max-width: 768px) {
+    right: -70px;
+    bottom: -5px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    right: -80px;
+    bottom: -5px;
+    scale: 0.9;
+  }
+
+  @media only screen and (max-width: 480px) {
+    right: -90px;
+    bottom: -5px;
+    scale: 0.8;
+  }
+
+  @media only screen and (max-width: 320px) {
+    right: -95px;
+    bottom: -5px;
+    scale: 0.7;
+  }
 `;
 
 export const FooterCon = styled.div`
@@ -42,6 +89,7 @@ export const FooterCon = styled.div`
   text-align: center;
   font-family: 'Source Code Pro', monospace;
   font-size: 15px;
+  font-weight: 500;
   position: absolute;
   bottom: 0;
   color: white;
@@ -57,7 +105,7 @@ export const QuoteGeneratorCon = styled.div`
   min-height: 350px;
   min-width: 350px;
   height: 70vh;
-  width: 70vw;
+  width: 60vw;
   //border: 2px solid #ffffff22;
   //border-radius: 15px;
   top: 50%;
@@ -83,15 +131,21 @@ export const QuoteGeneratorInnerCon = styled.div`
 `;
 
 export const QuoteGeneratorTitle = styled.div`
-  font-family: 'Permanent Marker', cursive;
-  font-size: 50px;
+  font-family: 'Dancing script', cursive;
+  font-size: 85px;
   text-align: center;
   color: white;
   padding: 0 20px 0 20px;
   position: relative;
   /* media query */
+  @media only screen and (max-width: 768px) {
+    font-size: 60px;
+  }
   @media only screen and (max-width: 600px) {
-    font-size: 30px;
+    font-size: 50px;
+  }
+  @media only screen and (max-width: 480px) {
+    font-size: 45px;
   }
 `;
 
@@ -155,10 +209,10 @@ export const QuoteGeneratorModalCon = styled(Box)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70vw;
+  width: 60vw;
   height: 70vh;
   //box-shadow: 24;
-  // transition: 0.2s all ease-in-out;
+  transition: 0.2s all ease-in-out;
   background: rgb(193 193 255 / 19%);
   box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
   backdrop-filter: blur(20px);
