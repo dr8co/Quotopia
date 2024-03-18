@@ -12,7 +12,7 @@
     "@aws-amplify/ui-react": "^6.1.4",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.15.11",
+    "@mui/material": "^5.15.13",
     "@types/node": "20.11.25",
     "@types/react": "18.2.64",
     "@types/react-dom": "18.2.21",
