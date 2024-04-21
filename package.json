@@ -15,7 +15,7 @@
     "@mui/material": "^5.15.15",
     "@types/node": "20.12.2",
     "@types/react": "18.2.67",
-    "@types/react-dom": "18.2.22",
+    "@types/react-dom": "18.2.25",
     "aws-amplify": "^6.0.27",
     "eslint": "9.0.0",
     "eslint-config-next": "14.1.4",
